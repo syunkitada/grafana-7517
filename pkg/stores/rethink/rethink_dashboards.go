@@ -1,15 +1,16 @@
-package stores
+package rethink
 
 import (
 	"errors"
 
-	log "github.com/alecthomas/log4go"
 	r "github.com/dancannon/gorethink"
+
+	"github.com/torkelo/grafana-pro/pkg/log"
 	"github.com/torkelo/grafana-pro/pkg/models"
 )
 
-func (self *rethinkStore) SaveDashboard(dash *models.Dashboard) error {
-	resp, err := r.Table("dashboards").Insert(dash, r.InsertOpts{Conflict: "update"}).RunWrite(self.session)
+func SaveDashboard(dash *models.Dashboard) error {
+	resp, err := r.Table("dashboards").Insert(dash, r.InsertOpts{Conflict: "update"}).RunWrite(session)
 	if err != nil {
 		return err
 	}
@@ -23,10 +24,10 @@ func (self *rethinkStore) SaveDashboard(dash *models.Dashboard) error {
 	return nil
 }
 
-func (self *rethinkStore) GetDashboard(slug string, accountId int) (*models.Dashboard, error) {
+func GetDashboard(slug string, accountId int) (*models.Dashboard, error) {
 	resp, err := r.Table("dashboards").
 		GetAllByIndex("AccountIdSlug", []interface{}{accountId, slug}).
-		Run(self.session)
+		Run(session)
 
 	if err != nil {
 		return nil, err
@@ -41,10 +42,10 @@ func (self *rethinkStore) GetDashboard(slug string, accountId int) (*models.Dash
 	return &dashboard, nil
 }
 
-func (self *rethinkStore) DeleteDashboard(slug string, accountId int) error {
+func DeleteDashboard(slug string, accountId int) error {
 	resp, err := r.Table("dashboards").
 		GetAllByIndex("AccountIdSlug", []interface{}{accountId, slug}).
-		Delete().RunWrite(self.session)
+		Delete().RunWrite(session)
 
 	if err != nil {
 		return err
@@ -57,10 +58,10 @@ func (self *rethinkStore) DeleteDashboard(slug string, accountId int) error {
 	return nil
 }
 
-func (self *rethinkStore) Query(query string, accountId int) ([]*models.SearchResult, error) {
+func SearchQuery(query string, accountId int) ([]*models.SearchResult, error) {
 	docs, err := r.Table("dashboards").
 		GetAllByIndex("AccountId", []interface{}{accountId}).
-		Filter(r.Row.Field("Title").Match(".*")).Run(self.session)
+		Filter(r.Row.Field("Title").Match(".*")).Run(session)
 
 	if err != nil {
 		return nil, err

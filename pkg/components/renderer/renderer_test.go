@@ -1,4 +1,4 @@
-package components
+package renderer
 
 import (
 	"io/ioutil"
@@ -12,8 +12,7 @@ func TestPhantomRender(t *testing.T) {
 
 	Convey("Can render url", t, func() {
 		tempDir, _ := ioutil.TempDir("", "img")
-		renderer := &PhantomRenderer{ImagesDir: tempDir, PhantomDir: "../../_vendor/phantomjs/"}
-		png, err := renderer.RenderToPng("http://www.google.com")
+		png, err := RenderToPng("http://www.google.com")
 		So(err, ShouldBeNil)
 		So(exists(png), ShouldEqual, true)
 
