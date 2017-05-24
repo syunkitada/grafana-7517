@@ -1,8 +1,8 @@
 <div class="modal-body" ng-controller="SaveDashboardMessageCtrl" ng-init="init();">
 	<div class="modal-header">
 		<h2 class="modal-header-title">
-			<i class="fa fa-exclamation"></i>
-			<span class="p-l-1">Unsaved changes</span>
+			<i class="fa fa-save"></i>
+			<span class="p-l-1">Save to changelog</span>
 		</h2>
 
 		<a class="modal-header-close" ng-click="dismiss();">
@@ -11,9 +11,7 @@
 	</div>
 
 	<form name="saveMessage" ng-submit="saveVersion(saveMessage.$valid)" class="modal-content" novalidate>
-		<h6 class="text-center">
-			You're leaving without saving your changes, are you sure you want to leave? To save, add a small note to describe the changes in this version.
-		</h6>
+		<h6 class="text-center">Add a note to describe the changes in this version</h6>
 		<div class="p-t-2">
 			<div class="gf-form">
 				<label class="gf-form-hint">
@@ -41,14 +39,11 @@
 
 		<div class="gf-form-button-row text-center">
 			<button type="submit" class="btn btn-success" ng-disabled="saveMessage.$invalid">
-				Save changes
-			</button>
-			<button type="button" class="btn btn-danger" ng-click="ignore();dismiss()">
-				Discard changes and leave
+				Save to changelog
 			</button>
 			<button class="btn btn-inverse" ng-click="dismiss();">Cancel</button>
 		</div>
 	</form>
-
 </div>
+
 
