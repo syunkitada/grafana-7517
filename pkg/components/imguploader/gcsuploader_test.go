@@ -8,15 +8,15 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestUploadToS3(t *testing.T) {
-	SkipConvey("[Integration test] for external_image_store.s3", t, func() {
+func TestUploadToGCS(t *testing.T) {
+	SkipConvey("[Integration test] for external_image_store.gcs", t, func() {
 		setting.NewConfigContext(&setting.CommandLineArgs{
 			HomePath: "../../../",
 		})
 
-		s3Uploader, _ := NewImageUploader()
+		gcsUploader, _ := NewImageUploader()
 
-		path, err := s3Uploader.Upload(context.Background(), "../../../public/img/logo_transparent_400x.png")
+		path, err := gcsUploader.Upload(context.Background(), "../../../public/img/logo_transparent_400x.png")
 
 		So(err, ShouldBeNil)
 		So(path, ShouldNotEqual, "")
