@@ -1,46 +1,41 @@
 ![Grafana](docs/logo-horizontal.png)
 
-The open-source platform for monitoring and observability.
+This is a fork of Grafana 7.5.17 under the Apache 2.0 License.
 
-[![License](https://img.shields.io/github/license/grafana/grafana)](LICENSE)
-[![Circle CI](https://img.shields.io/circleci/build/gh/grafana/grafana)](https://circleci.com/gh/grafana/grafana)
-[![Go Report Card](https://goreportcard.com/badge/github.com/grafana/grafana)](https://goreportcard.com/report/github.com/grafana/grafana)
+This is my playground.
 
-Grafana allows you to query, visualize, alert on and understand your metrics no matter where they are stored. Create, explore, and share dashboards with your team and foster a data driven culture:
+## How to play
 
-- **Visualize:** Fast and flexible client side graphs with a multitude of options. Panel plugins offer many different ways to visualize metrics and logs.
-- **Dynamic Dashboards:** Create dynamic & reusable dashboards with template variables that appear as dropdowns at the top of the dashboard.
-- **Explore Metrics:** Explore your data through ad-hoc queries and dynamic drilldown. Split view and compare different time ranges, queries and data sources side by side.
-- **Explore Logs:** Experience the magic of switching from metrics to logs with preserved label filters. Quickly search through all your logs or streaming them live.
-- **Alerting:** Visually define alert rules for your most important metrics. Grafana will continuously evaluate and send notifications to systems like Slack, PagerDuty, VictorOps, OpsGenie.
-- **Mixed Data Sources:** Mix different data sources in the same graph! You can specify a data source on a per-query basis. This works for even custom datasources.
+Environment Information
 
-## Get started
+```
+$ go version
+go version go1.22.5 linux/amd64
 
-- [Get Grafana](https://grafana.com/get)
-- [Installation guides](http://docs.grafana.org/installation/)
+$ node version
+Node.js v20.15.1
+```
 
-Unsure if Grafana is for you? Watch Grafana in action on [play.grafana.org](https://play.grafana.org/)!
+Start frontend.
 
-## Documentation
+```
+$ export NODE_OPTIONS=--openssl-legacy-provider
+$ yarn install
+$ yarn start
+```
 
-The Grafana documentation is available at [grafana.com/docs](https://grafana.com/docs/).
+Start backend.
 
-## Contributing
+```
+$ make run
+```
 
-If you're interested in contributing to the Grafana project:
+## Note
 
-- Start by reading the [Contributing guide](/CONTRIBUTING.md).
-- Learn how to set up your local environment, in our [Developer guide](/contribute/developer-guide.md).
-- Explore our [beginner-friendly issues](https://github.com/grafana/grafana/issues?q=is%3Aopen+is%3Aissue+label%3A%22beginner+friendly%22).
+I deleted large files from git commit as follows.
 
-## Get involved
-
-- Follow [@grafana on Twitter](https://twitter.com/grafana/).
-- Read and subscribe to the [Grafana blog](https://grafana.com/blog/).
-- If you have a specific question, check out our [discussion forums](https://community.grafana.com/).
-- For general discussions, join us on the [official Slack](http://slack.raintank.io/) team.
-
-## License
-
-Grafana is distributed under the [Apache 2.0 License](https://github.com/grafana/grafana/blob/master/LICENSE).
+```
+$ git clone https://github.com/grafana/grafana -b v7.5.17 grafana-7517
+$ target="pkg/cmd/grafana-server/__debug_bin e2e/build_results.zip vendor grafana grafana-pro pkg/tsdb/plugins/mock_tsdb_plugin/simple-plugin scripts/go/bin/revive pkg/build Godeps public/img/tgr288gear_line6.pdf .yarn pkg/services/folder/folderimpl/test.db"
+$ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch $target" --prune-empty HEAD
+```
